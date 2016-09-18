@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
 
 	public Unit unit;
 	public int hp;
+	public int sp;
 	private int hp_max;
 	public int life = 1;
 	public int player_num; // 1 or 2
@@ -17,11 +18,14 @@ public class Player : MonoBehaviour {
 
 	private Renderer renderer_;
 	private float BarScaleY;
-	private float Bar1_increment;
+	private float BarScaleX;
+	private float HpBar1_increment;
+	private float SpBar1_increment;
 	private GameObject canvas;
 	private Text Hptext;
 	private GameObject HpBar;
 	private Text Sptext;
+	private GameObject SpBar;
 	private GameObject[] lifeIcons = new GameObject[3];
 
 	public SerialHandler serialHandler;
@@ -48,11 +52,15 @@ public class Player : MonoBehaviour {
 		canvas = statusField.transform.FindChild ("Canvas").gameObject;
 		Hptext = canvas.transform.FindChild("HP").gameObject.transform.GetComponentInChildren<Text>();
 		HpBar = statusField.transform.FindChild ("HPBar_front").gameObject;
+		SpBar = statusField.transform.FindChild ("SPBar_front").gameObject;
+
+		BarScaleX = HpBar.transform.localScale.x;
 		BarScaleY = HpBar.transform.localScale.y;
-		Bar1_increment = BarScaleY / hp;
+		HpBar1_increment = BarScaleY / hp;
+		SpBar1_increment = BarScaleY / sp;
 		Sptext = canvas.transform.FindChild("SP").gameObject.transform.GetComponentInChildren<Text>();
 		Hptext.text = ""+hp;
-		Sptext.text = ""+0;
+		Sptext.text = ""+sp;
 		GameObject lifeIconsGameObject = statusField.transform.FindChild ("LifeIcons").gameObject;
 		lifeIcons [0] = lifeIconsGameObject.transform.FindChild ("LifeIcon1").gameObject;
 		lifeIcons [1] = lifeIconsGameObject.transform.FindChild ("LifeIcon2").gameObject;
@@ -70,10 +78,16 @@ public class Player : MonoBehaviour {
 				ShotSplashBullet ();
 				yield return new WaitForSeconds (unit.shotDelay);
 			} else if (Input.GetKey(KeyCode.C) || switch3 == true){
-				ShotCustardBomb ();
-				yield return new WaitForSeconds (unit.shotDelay);
+				if (sp >= 10) {
+					StartCoroutine ("Damage");
+					ShotCustardBomb ();
+					sp -= 10;
+					StatusUpdate ();
+					yield return new WaitForSeconds (unit.shotDelay);
+				} else {
+					yield return new WaitForEndOfFrame ();
+				}
 			} else {
-					
 				yield return new WaitForEndOfFrame ();
 			}
 		}
@@ -112,6 +126,9 @@ public class Player : MonoBehaviour {
 
 	void StatusUpdate(){
 		Hptext.text = ""+hp;
+		Sptext.text = "" + sp;
+		HpBar.transform.localScale = new Vector3(BarScaleX, HpBar1_increment*hp, 1);
+		SpBar.transform.localScale = new Vector3(BarScaleX, SpBar1_increment*sp, 1);
 
 		for (int i = 0; i < 3; i++) {
 			GameObject lifeIcon = lifeIcons [i];
@@ -142,6 +159,14 @@ public class Player : MonoBehaviour {
 		Instantiate (custardBomb, transform.position,transform.rotation);
 	}
 
+	public void AddSp(int addSp){
+		if (BarScaleY < SpBar1_increment * (sp + addSp)) {
+			return;
+		}
+		sp+=addSp;
+		StatusUpdate();
+	}
+
 	void OnTriggerEnter2D (Collider2D c){
 		if (LayerMask.LayerToName (gameObject.layer) == "PlayerDamage") {
 			return;
@@ -158,7 +183,6 @@ public class Player : MonoBehaviour {
 //			unit.GetAnimator ().SetTrigger ("Invincible");
 			StartCoroutine ("Damage");
 
-			HpBar.transform.localScale -= new Vector3(0, Bar1_increment, 0);
 			StatusUpdate ();
 		}
 

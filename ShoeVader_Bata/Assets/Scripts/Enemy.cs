@@ -113,6 +113,10 @@ public class Enemy : MonoBehaviour {
 
 		if (hp <= 0) {
 			FindObjectOfType<Score> ().AddPoint (point, player_num);
+			GameObject player = GameObject.Find ("Player" + player_num);
+			if (player != null) {
+				player.GetComponent<Player> ().AddSp (1);
+			}
 
 			unit.Explosion ();
 			Destroy (gameObject);
