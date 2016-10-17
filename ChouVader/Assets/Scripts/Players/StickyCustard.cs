@@ -19,7 +19,7 @@ public class StickyCustard : MonoBehaviour {
 		if (layerName == "Bullet(Enemy)") {
 			Destroy (c.gameObject);
 		}
-		if (layerName == "Enemy") {
+		if (layerName == "Enemy" || layerName == "EnemyInvincible") {
 			var enemy = c.gameObject.GetComponents<Enemy> ();
 			Debug.Log (enemy);
 			c.gameObject.GetComponent<Enemy> ().GetSlow (gameObject);

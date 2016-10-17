@@ -9,8 +9,8 @@ public class Boss : Enemy {
 
 	public float speed;
 	public GameObject[] bullets;
-	public GameObject barrage;
-	public GameObject callEnemyWave;
+	public GameObject[] barrages;
+	public GameObject[] callEnemyWaves;
 	public GameObject startPosition;
 	public GameObject[] movePositions;
 	public Rigidbody2D rb;
@@ -57,17 +57,21 @@ public class Boss : Enemy {
 			int motion_pattern_rand = Random.Range (0, 4);
 			if (motion_pattern_rand == 0) {
 				int movePositions_index = Random.Range (0, movePositions.Length);
-				nowMoving = true;
-				StartCoroutine (MoveToPoint (movePositions [movePositions_index].transform.position, speed));
+				if (movePositions.Length > movePositions_index) {
+					nowMoving = true;
+					StartCoroutine (MoveToPoint (movePositions [movePositions_index].transform.position, speed));
+				}
 			} else if (motion_pattern_rand == 1) {
 				nowMoving = true;
 				StartCoroutine (RushAndReturn (speed * 2, speed));
 			} else if (motion_pattern_rand == 2) {
 				nowMoving = true;
-				StartCoroutine (CallEnemy ());
+				StartCoroutine (CallEnemy (0));
 			} else if (motion_pattern_rand == 3) {
 //				nowMoving = true;
-				Instantiate(barrage, transform.position, transform.rotation);
+				if (barrages.Length > 0) {
+					Instantiate (barrages [0], transform.position, transform.rotation);
+				}
 			}
 		}
 	}
@@ -125,9 +129,13 @@ public class Boss : Enemy {
 	}
 
 
-	IEnumerator CallEnemy(){
-		GameObject wave = (GameObject)Instantiate(callEnemyWave);
-		Destroy (wave, 30.0f);
+	IEnumerator CallEnemy(int waveNumber){
+		if (callEnemyWaves.Length <= waveNumber) {
+			nowMoving = false;
+
+			yield break;
+		}
+		GameObject wave = (GameObject)Instantiate(callEnemyWaves[waveNumber]);
 		rb.velocity = new Vector2(0, 0);
 
 		yield return new WaitForSeconds (3.0f);

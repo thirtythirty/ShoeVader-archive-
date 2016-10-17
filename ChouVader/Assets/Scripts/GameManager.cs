@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour {
 		Instantiate (myController);
 		createStage (nowStageNum);
 		createPlayer ();
-		Debug.Log (ModeSelecter.SelectedMode);
 	}
 
 	public void GameOver(int player_num){

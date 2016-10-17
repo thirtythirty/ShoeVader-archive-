@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LastAttemptEnemy : Enemy {
+public class LastAttemptEnemy : MonoBehaviour{
 
 	public GameObject LastAttemptBullet; 
 
