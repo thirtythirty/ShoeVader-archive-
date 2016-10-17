@@ -1,0 +1,29 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemies/RandomBullet.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Player.cs" Line="97" Column="27" />
+      <File FileName="Assets/Scripts/Explosion.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Score.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SerialHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Stage.cs" Line="29" Column="1" />
+      <File FileName="Assets/Scripts/Unit.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Boss.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="99" Column="14" />
+      <File FileName="Assets/Scripts/Enemies/MoveByPointEnemy.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MyController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Bullet.cs" Line="13" Column="39" />
+      <File FileName="Assets/Scripts/Enemies/AccelerateEnemy.cs" Line="12" Column="4" />
+      <File FileName="Assets/Scripts/Enemies/RandomBullet.cs" Line="31" Column="42" />
+      <File FileName="Assets/Scripts/Enemies/Barrage.cs" Line="38" Column="44" />
+      <File FileName="Assets/Scripts/Enemies/LastAttemptEnemy.cs" Line="14" Column="4" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/thirty/workspace/nnct/3J/クラス企画/ShoeVader/ChouVader/Assets/Scripts/SerialHandler.cs" line="42" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

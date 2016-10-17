@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour {
 	public float lifeTime = 5;
 	public float power = 1;
 	public Rigidbody2D rb;
+	public Vector3 BaseVelocity = new Vector3(0,0,0);
 
 	// Use this for initialization
 	public virtual IEnumerator Start () {
@@ -18,7 +19,7 @@ public class Bullet : MonoBehaviour {
 	}
 
 	public virtual void setVelocity(){
-		rb.velocity = transform.up.normalized * speed;
+		rb.velocity = BaseVelocity + transform.up.normalized * speed;
 	}
 	// Update is called once per frame
 	public virtual void Update () {

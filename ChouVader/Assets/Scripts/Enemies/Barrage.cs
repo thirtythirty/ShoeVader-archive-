@@ -7,7 +7,7 @@ public class Barrage : MonoBehaviour {
 	public int bulletTotal = 10;
 	public int barrageTimes = 5;
 	public float waitTime = 1.0f;
-
+	public float angleRate = 0.01f;
 
 	// Use this for initialization
 	void Start () {
@@ -29,9 +29,10 @@ public class Barrage : MonoBehaviour {
 
 	IEnumerator ShotBarrage(){
 		float angle_interval = 360.0f / bulletTotal;
+
 		for (int i = 0; i < barrageTimes; i++) {
 			for (int j = 0; j < bulletTotal; j++) {
-				float angle = angle_interval * (j+i/10.0f);
+				float angle = angle_interval * j+i*angleRate;
 				ShotBulletByAngle (angle);
 			}
 			yield return new WaitForSeconds (waitTime);

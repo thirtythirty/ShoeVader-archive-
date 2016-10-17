@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement; 
+
 
 public class GameManager : MonoBehaviour {
 	public GameObject player1;
 	public GameObject player2;
 	public GameObject player1_instance;
 	public GameObject player2_instance;
+	public GameObject myController;
 
 	public GameObject continue_menu;
 	public GameObject[] Stages;
@@ -17,8 +20,10 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Instantiate (myController);
 		createStage (nowStageNum);
 		createPlayer ();
+		Debug.Log (ModeSelecter.SelectedMode);
 	}
 
 	public void GameOver(int player_num){
@@ -72,7 +77,7 @@ public class GameManager : MonoBehaviour {
 			Destroy (nowStage);
 			createStage (nowStageNum);
 		} else {
-			Application.LoadLevel("result");
+			SceneManager.LoadScene ("result");
 		}
 	}
 }

@@ -18,6 +18,7 @@ public class Stage : MonoBehaviour {
 	}
 
 	public void CallBoss(){
+		GetComponent<AudioSource> ().Stop ();
 		boss = (GameObject)Instantiate(boss);
 	}
 

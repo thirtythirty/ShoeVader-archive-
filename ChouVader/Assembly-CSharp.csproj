@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D3ADA734-BFFB-5EF2-D1AD-75B75B4D4115}</ProjectGuid>
+    <ProjectGuid>{923480A0-A43A-7707-87D8-0CD46E01151A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -62,12 +62,19 @@
      <Compile Include="Assets\Scripts\Enemies\LaserBullet.cs" />
      <Compile Include="Assets\Scripts\Enemies\LastAttemptEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\ManyBulletShotEnemy.cs" />
+     <Compile Include="Assets\Scripts\Enemies\MoveByPointEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\Piman_Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\Piman_EnemyBullet.cs" />
+     <Compile Include="Assets\Scripts\Enemies\RandomBullet.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\Explosion.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GameManagerSelecter.cs" />
+     <Compile Include="Assets\Scripts\Items\HpRecoveryItem.cs" />
+     <Compile Include="Assets\Scripts\Items\Item.cs" />
+     <Compile Include="Assets\Scripts\Items\SpRecoveryItem.cs" />
      <Compile Include="Assets\Scripts\Manager.cs" />
+     <Compile Include="Assets\Scripts\MyController.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Players\CustardBomb.cs" />
      <Compile Include="Assets\Scripts\Players\PlayerBullet.cs" />
@@ -76,6 +83,7 @@
      <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\Scripts\SerialHandler.cs" />
      <Compile Include="Assets\Scripts\Stage.cs" />
+     <Compile Include="Assets\Scripts\StartScreen\ModeSelecter.cs" />
      <Compile Include="Assets\Scripts\Test\TestScore.cs" />
      <Compile Include="Assets\Scripts\Unit.cs" />
      <Compile Include="Assets\Scripts\Wave.cs" />
@@ -92,7 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{0C3B480A-1945-7BD3-C237-69A232D395DF}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{02EFE884-ECAD-8D04-64B1-A98F603C3058}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

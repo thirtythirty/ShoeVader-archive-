@@ -17,9 +17,9 @@ public class Enemy : MonoBehaviour {
 
 		Move (unit.speed);
 
-		if (unit.canShot == false) {
-			yield break;
-		}
+
+
+		gameObject.layer = LayerMask.NameToLayer("EnemyInvincible");
 
 		// 画面内に入っているか判定
 		Vector2 min = Camera.main.ViewportToWorldPoint (new Vector2 (0, 0));
@@ -31,7 +31,12 @@ public class Enemy : MonoBehaviour {
 			yield return new WaitForSeconds(1.0f);
 		}
 
+		gameObject.layer = LayerMask.NameToLayer("Enemy");
 
+
+		if (unit.canShot == false) {
+			yield break;
+		}
 
 		while (true) {
 			ShotBullet ();
@@ -55,7 +60,6 @@ public class Enemy : MonoBehaviour {
 //			unit.Shot (shotPosition);
 //		}
 		unit.Shot (transform);
-
 	}
 		
 	public virtual void Move (float speed){
@@ -91,6 +95,10 @@ public class Enemy : MonoBehaviour {
 
 	public virtual void OnTriggerEnter2D(Collider2D c){
 		string layerName = LayerMask.LayerToName (c.gameObject.layer);
+
+		if (LayerMask.LayerToName (gameObject.layer) == "EnemyInvincible") {
+			return;
+		}
 
 		if (layerName != "Bullet(Player)" && layerName != "Explosion(Player)") {
 			return;

@@ -10,7 +10,8 @@ public class Player : MonoBehaviour {
 	public Unit unit;
 	public int hp;
 	public int sp;
-	private int hp_max;
+	public int hp_max;
+	public int sp_max;
 	public int life = 1;
 	public int player_num; // 1 or 2
 
@@ -28,7 +29,7 @@ public class Player : MonoBehaviour {
 	private GameObject SpBar;
 	private GameObject[] lifeIcons = new GameObject[3];
 
-	public SerialHandler serialHandler;
+//	public SerialHandler serialHandler;
 	private bool switch1 = false;
 	private bool switch2 = false;
 	private bool switch3 = false;
@@ -41,10 +42,12 @@ public class Player : MonoBehaviour {
 	public float SplashBulletAddAngle = 30.0f;
 	public GameObject custardBomb;
 
+	private AudioSource[] shotSE;
+
 	// Use this for initialization
 	IEnumerator Start () {
 
-		serialHandler.OnDataReceived += OnDataReceived;
+//		serialHandler.OnDataReceived += OnDataReceived;
 
 		unit = GetComponent<Unit> ();
 		hp_max = hp;
@@ -58,7 +61,7 @@ public class Player : MonoBehaviour {
 		BarScaleX = HpBar.transform.localScale.x;
 		BarScaleY = HpBar.transform.localScale.y;
 		HpBar1_increment = BarScaleY / hp;
-		SpBar1_increment = BarScaleY / sp;
+		SpBar1_increment = BarScaleY / sp_max;
 		Sptext = canvas.transform.FindChild("SP").gameObject.transform.GetComponentInChildren<Text>();
 		Hptext.text = ""+hp;
 		Sptext.text = ""+sp;
@@ -70,20 +73,31 @@ public class Player : MonoBehaviour {
 	
 		StartCoroutine ("Damage");
 
+		shotSE = GetComponents<AudioSource> ();
+
 		while (true) {
-			if ((player_num == 1 && Input.GetKey (KeyCode.Z)) || (player_num == 2 && Input.GetKey(KeyCode.B))|| switch1 == true) {
+			if ((player_num == 1 && (Input.GetKey (KeyCode.Z) || MyController.Controller1.switch1)) || (player_num == 2 && (Input.GetKey(KeyCode.B)|| MyController.Controller2.switch1))|| switch1 == true) {
 				unit.Shot (transform);
+				if (shotSE.Length > 0) {
+					shotSE [0].Play ();
+				}
 				yield return new WaitForSeconds (unit.shotDelay);
-			} else if ((player_num == 1 && Input.GetKey (KeyCode.X)) || (player_num == 2 && Input.GetKey(KeyCode.N))|| switch2 == true) {
+			} else if ((player_num == 1 && (Input.GetKey (KeyCode.X) || MyController.Controller1.switch2)) || (player_num == 2 && (Input.GetKey(KeyCode.N)|| MyController.Controller2.switch2))|| switch2 == true) {
 				ShotSplashBullet ();
+				if (shotSE.Length > 1) {
+					shotSE [1].Play ();
+				}
 				yield return new WaitForSeconds (SplashShotDelay);
-			} else if ((player_num == 1 && Input.GetKey(KeyCode.C)) || (player_num == 2 && Input.GetKey(KeyCode.M)) || switch3 == true){
+			} else if ((player_num == 1 && (Input.GetKey(KeyCode.C) || MyController.Controller1.switch3)) || (player_num == 2 && (Input.GetKey(KeyCode.M)|| MyController.Controller2.switch3)) || switch3 == true){
 				if (sp >= 10) {
 					StartCoroutine ("Damage");
 					ShotCustardBomb ();
 					sp -= 10;
 					StatusUpdate ();
-					yield return new WaitForSeconds (unit.shotDelay);
+					if (shotSE.Length > 2) {
+						shotSE [2].Play ();
+					}
+					yield return new WaitForSeconds (1.0f);
 				} else {
 					yield return new WaitForEndOfFrame ();
 				}
@@ -108,11 +122,16 @@ public class Player : MonoBehaviour {
 			float player_y = Input.GetAxisRaw ("Vertical1");
 			Vector2 direction_player = new Vector2 (player_x, player_y).normalized;
 			Move (direction_player);
+
+			Vector2 c1_direction = new Vector2 (MyController.Controller1.horizontal, MyController.Controller1.vertical).normalized;
+			Move (c1_direction);
 		} else {
 			float player_x = Input.GetAxisRaw ("Horizontal2");
 			float player_y = Input.GetAxisRaw ("Vertical2");
 			Vector2 direction_player = new Vector2 (player_x, player_y).normalized;
 			Move (direction_player);
+			Vector2 c2_direction = new Vector2 (MyController.Controller2.horizontal, MyController.Controller2.vertical).normalized;
+			Move (c2_direction);
 		}
 
 
@@ -180,11 +199,19 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D c){
-		if (LayerMask.LayerToName (gameObject.layer) == "PlayerDamage") {
+		string layerName = LayerMask.LayerToName (c.gameObject.layer);
+
+		if (layerName == "Item") {
+			var item = (Item)c.transform.GetComponent<Item> ();
+			item.effect (transform.GetComponent<Player>());
+			StatusUpdate();
+			Destroy (c.gameObject);
 			return;
 		}
 
-		string layerName = LayerMask.LayerToName (c.gameObject.layer);
+		if (LayerMask.LayerToName (gameObject.layer) == "PlayerDamage") {
+			return;
+		}
 
 		if (layerName == "Bullet(Enemy)") {
 			Destroy (c.gameObject);

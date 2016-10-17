@@ -13,7 +13,7 @@ public class PlayerBullet : Bullet {
 		if (layerName == "Bullet(Player)") {
 			if (extraBulletCanShot == true) {
 				if (player_num != c.gameObject.GetComponent<PlayerBullet> ().player_num) {
-					power = power*1.5f;
+					power = power*2.0f;
 					gameObject.GetComponent<SpriteRenderer> ().color = MixBulletColoer;
 
 //					Instantiate (extraBullet, transform.position, transform.rotation);
