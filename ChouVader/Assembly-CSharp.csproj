@@ -82,11 +82,14 @@
      <Compile Include="Assets\Scripts\Players\StickyCustard.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\Scripts\SerialHandler.cs" />
+     <Compile Include="Assets\Scripts\SingletonMonoBehaviour.cs" />
      <Compile Include="Assets\Scripts\Stage.cs" />
      <Compile Include="Assets\Scripts\StartScreen\ModeSelecter.cs" />
      <Compile Include="Assets\Scripts\Test\TestScore.cs" />
      <Compile Include="Assets\Scripts\Unit.cs" />
      <Compile Include="Assets\Scripts\Wave.cs" />
+     <Compile Include="Assets\naichilab\FadeManager\Sample\FadeSample.cs" />
+     <Compile Include="Assets\naichilab\FadeManager\Scripts\FadeManager.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />

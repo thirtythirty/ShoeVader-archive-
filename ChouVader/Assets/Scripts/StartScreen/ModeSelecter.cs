@@ -29,13 +29,18 @@ public class ModeSelecter : MonoBehaviour {
 	void Update () {
 		if (Input.GetKey (KeyCode.Z) || MyController.Controller1.switch1 || Input.GetKey (KeyCode.B) || MyController.Controller2.switch1) {
 			SelectedMode = 0;
-			SceneManager.LoadScene ("game");
+//			SceneManager.LoadScene ("game");
+			FadeManager.Instance.LoadLevel("game",0.5f);
+
 		} else if (Input.GetKey (KeyCode.X) || MyController.Controller1.switch2 || Input.GetKey (KeyCode.N) || MyController.Controller2.switch2) {
 			SelectedMode = 2;
-			SceneManager.LoadScene ("game");
+//			SceneManager.LoadScene ("game");
+			FadeManager.Instance.LoadLevel("game",0.5f);
+
 		} else if (Input.GetKey (KeyCode.C) || MyController.Controller1.switch3 || Input.GetKey (KeyCode.M) || MyController.Controller2.switch3) {
 			SelectedMode = 1;
-			SceneManager.LoadScene ("game");
+//			SceneManager.LoadScene ("game");
+			FadeManager.Instance.LoadLevel("game",0.5f);
 		}
 	}
 }
