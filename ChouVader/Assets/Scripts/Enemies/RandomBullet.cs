@@ -11,8 +11,8 @@ public class RandomBullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		StartCoroutine (ShotRandom ());
 		bullet.GetComponent<Bullet> ().BaseVelocity = new Vector3 (0, 0, 0);
+		StartCoroutine (ShotRandom ());
 	}
 
 	void ShotBulletByAngle(float angle){

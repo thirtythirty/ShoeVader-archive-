@@ -21,7 +21,6 @@ public class StickyCustard : MonoBehaviour {
 		}
 		if (layerName == "Enemy" || layerName == "EnemyInvincible") {
 			var enemy = c.gameObject.GetComponents<Enemy> ();
-			Debug.Log (enemy);
 			c.gameObject.GetComponent<Enemy> ().GetSlow (gameObject);
 		}
 	}

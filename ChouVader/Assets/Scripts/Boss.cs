@@ -15,13 +15,13 @@ public class Boss : Enemy {
 	public GameObject[] movePositions;
 	public Rigidbody2D rb;
 	public GameObject BossStatusField;
-	public GameObject BossHpBar;
-	public float Bar1_increment;
-	public float BarScaleY_origin;
+	protected GameObject BossHpBar;
+	protected float Bar1_increment;
+	protected float BarScaleY_origin;
 	public string BossName;
-	public Text BossNameArea;
+	protected Text BossNameArea;
 
-	bool nowMoving = false;
+	public bool nowMoving = false;
 
 	public void Shot(int index){
 		for (int i = 0; i < bullets[index].transform.childCount; i++) {
@@ -45,9 +45,17 @@ public class Boss : Enemy {
 		BarScaleY_origin = BossHpBar.transform.localScale.y;
 		Bar1_increment = BarScaleX / hp;
 
+		UnityEngine.Random.seed = (int)Time.time % 100;
+
+		init ();
+
 		nowMoving = true;
 		StartCoroutine (MoveToPoint(startPosition.transform.position, speed));
 		yield break;
+	}
+
+	public virtual void init(){
+
 	}
 	
 	public override void Update () {
@@ -76,12 +84,12 @@ public class Boss : Enemy {
 		}
 	}
 
-	IEnumerator MoveToPoint(Vector3 movePosition, float moveSpeed){
+	public IEnumerator MoveToPoint(Vector3 movePosition, float moveSpeed){
 		Vector2 moveVector = (movePosition - transform.position).normalized * moveSpeed;
 		rb.velocity = moveVector;
 
 		while (true) {
-			if ((movePosition - transform.position).magnitude <= (moveVector.magnitude/10.0f)) {
+			if ((movePosition - transform.position).magnitude <= (moveVector.magnitude/5.0f)) {
 				transform.position = movePosition;
 
 				break;
@@ -95,7 +103,7 @@ public class Boss : Enemy {
 		yield break;
 	}
 
-	IEnumerator RushAndReturn(float rushSpeed, float returnSpeed){
+	public IEnumerator RushAndReturn(float rushSpeed, float returnSpeed){
 		Vector2 mix = Camera.main.ViewportToWorldPoint (new Vector2 (0, 0));
 		Vector3 rushPosition = new Vector2 (transform.position.x, mix.y);
 
@@ -129,7 +137,7 @@ public class Boss : Enemy {
 	}
 
 
-	IEnumerator CallEnemy(int waveNumber){
+	public IEnumerator CallEnemy(int waveNumber){
 		if (callEnemyWaves.Length <= waveNumber) {
 			nowMoving = false;
 
@@ -146,14 +154,43 @@ public class Boss : Enemy {
 	}
 
 
-
-	void StatusUpdate(){
+	public void StatusUpdate(){
 		BossHpBar.transform.localScale = new Vector3(Bar1_increment*hp, BarScaleY_origin, 1);
 	}
 
-	void OnDestroy(){
+	public virtual void OnDestroy(){
 		FindObjectOfType<GameManager> ().ChangeStage ();
+		FindObjectOfType<Score> ().AddPoint (point/2, 1);
+		FindObjectOfType<Score> ().AddPoint (point/2, 2);
+	}
 
+	public override void destroyAction(){
 		Destroy (BossStatusField);
+
+		unit.Explosion ();
+		Destroy (gameObject);
+	}
+	public override void addPoint(int player_num){
+		// 何もしない　（ポイント追加は別のところでやる）
+	}
+
+	// 移動後にnowMovingをfalseにしない版。
+	// 組み合わせる時に使う。
+	public IEnumerator MoveToPointForCoustom(Vector3 movePosition, float moveSpeed){
+		Vector2 moveVector = (movePosition - transform.position).normalized * moveSpeed;
+		rb.velocity = moveVector;
+
+		while (true) {
+			if ((movePosition - transform.position).magnitude <= (moveVector.magnitude/10.0f)) {
+				transform.position = movePosition;
+
+				break;
+			}
+			yield return new WaitForEndOfFrame();
+		}
+
+
+		rb.velocity = new Vector2(0, 0);
+		yield break;
 	}
 }

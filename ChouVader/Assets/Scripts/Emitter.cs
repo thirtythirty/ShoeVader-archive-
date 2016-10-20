@@ -20,8 +20,7 @@ public class Emitter : MonoBehaviour {
 //				yield return new WaitForEndOfFrame ();
 //			}
 
-			GameObject wave = (GameObject)Instantiate (waves [currentWave],
-				                  transform.position, Quaternion.identity);
+			GameObject wave = (GameObject)Instantiate (waves [currentWave]);
 			wave.transform.parent = transform;
 
 //			while (wave.transform.childCount != 0) { // すべて破壊されるまで待つ

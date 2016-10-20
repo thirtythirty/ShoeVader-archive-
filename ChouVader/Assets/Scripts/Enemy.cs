@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour {
 		max.x = max.x - ((max.x*2.0f) / 16.0f) * 3.0f;
 		while(transform.position.x < min.x || transform.position.x > max.x
 			|| transform.position.y < min.y || transform.position.y > max.y){
-			yield return new WaitForSeconds(1.0f);
+			yield return new WaitForEndOfFrame();
 		}
 
 		gameObject.layer = LayerMask.NameToLayer("Enemy");
@@ -122,16 +122,23 @@ public class Enemy : MonoBehaviour {
 		}
 
 		if (hp <= 0) {
-			FindObjectOfType<Score> ().AddPoint (point, player_num);
+			addPoint (player_num);
 			GameObject player = GameObject.Find ("Player" + player_num);
 			if (player != null) {
 				player.GetComponent<Player> ().AddSp (1);
 			}
 
-			unit.Explosion ();
-			Destroy (gameObject);
+			destroyAction ();
 		} else {
 			unit.GetAnimator ().SetTrigger ("Damage");
 		}
+	}
+
+	public virtual void destroyAction(){
+		unit.Explosion ();
+		Destroy (gameObject);
+	}
+	public virtual void addPoint(int player_num){
+		FindObjectOfType<Score> ().AddPoint (point, player_num);
 	}
 }

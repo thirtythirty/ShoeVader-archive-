@@ -26,4 +26,8 @@ public class Bullet : MonoBehaviour {
 //		rb.AddForce (transform.right.normalized * speed);
 
 	}
+
+	public void BaseVelocitySet(Vector3 v){
+		BaseVelocity = v;
+	}
 }

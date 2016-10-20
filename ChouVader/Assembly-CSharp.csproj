@@ -47,6 +47,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Background.cs" />
      <Compile Include="Assets\Scripts\Boss.cs" />
+     <Compile Include="Assets\Scripts\Boss\FirstBoss_Mild.cs" />
+     <Compile Include="Assets\Scripts\Boss\SecondBoss_Mild.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\ContinueMenu.cs" />
      <Compile Include="Assets\Scripts\DestroyArea.cs" />
@@ -54,6 +56,7 @@
      <Compile Include="Assets\Scripts\Enemies\AccelerateEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\AimBullet.cs" />
      <Compile Include="Assets\Scripts\Enemies\AimBulletWithWait.cs" />
+     <Compile Include="Assets\Scripts\Enemies\AimByAngleWithWait.cs" />
      <Compile Include="Assets\Scripts\Enemies\Barrage.cs" />
      <Compile Include="Assets\Scripts\Enemies\ExplosionEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\HomingBullet.cs" />
@@ -62,7 +65,11 @@
      <Compile Include="Assets\Scripts\Enemies\LaserBullet.cs" />
      <Compile Include="Assets\Scripts\Enemies\LastAttemptEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\ManyBulletShotEnemy.cs" />
+     <Compile Include="Assets\Scripts\Enemies\ManyBullets.cs" />
+     <Compile Include="Assets\Scripts\Enemies\MazeBarrage.cs" />
+     <Compile Include="Assets\Scripts\Enemies\MoveByPointANDManyBulletShotEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\MoveByPointEnemy.cs" />
+     <Compile Include="Assets\Scripts\Enemies\MoveByVector.cs" />
      <Compile Include="Assets\Scripts\Enemies\Piman_Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\Piman_EnemyBullet.cs" />
      <Compile Include="Assets\Scripts\Enemies\RandomBullet.cs" />

@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] Stages;
 	public int nowStageNum = 0;
 	private GameObject nowStage;
+	public GameObject lastCallItem;
+
 
 	public int active_player_num = 2; // 1 or 2
 	public int continue_count = 0;
@@ -73,10 +75,28 @@ public class GameManager : MonoBehaviour {
 	public void ChangeStage(){
 		nowStageNum += 1;
 		if (nowStageNum < Stages.Length) {
-			Destroy (nowStage);
-			createStage (nowStageNum);
+			StartCoroutine (gotoNextStage ());
 		} else {
-			SceneManager.LoadScene ("result");
+			StartCoroutine (gotoResult ());
 		}
+
+	}
+
+	public IEnumerator gotoNextStage(){
+		yield return new WaitForSeconds(0.1f);
+
+		Instantiate (lastCallItem);
+
+		yield return new WaitForSeconds(2.0f);
+
+
+		Destroy (nowStage);
+		createStage (nowStageNum);
+	}
+
+	public IEnumerator gotoResult(){
+		yield return new WaitForSeconds(1.0f);
+
+		SceneManager.LoadScene ("result");
 	}
 }

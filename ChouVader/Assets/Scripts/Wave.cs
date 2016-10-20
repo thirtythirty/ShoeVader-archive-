@@ -6,7 +6,7 @@ public class Wave : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		Destroy (gameObject, waitTime + 60.0f);
 	}
 	
 	// Update is called once per frame

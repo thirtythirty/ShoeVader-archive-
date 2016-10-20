@@ -217,7 +217,7 @@ public class Player : MonoBehaviour {
 			Destroy (c.gameObject);
 		}
 
-		if (layerName == "Bullet(Enemy)" || layerName == "Enemy"  || layerName == "Boss" || layerName == "Explosion(BombEnemy)") {
+		if (layerName == "Bullet(Enemy)" || layerName == "Enemy"  || layerName == "EnemyInvincible" || layerName == "Boss" || layerName == "Explosion(BombEnemy)") {
 			hp -= 1;
 //			unit.GetAnimator ().SetTrigger ("Invincible");
 			StartCoroutine ("Damage");
@@ -241,7 +241,7 @@ public class Player : MonoBehaviour {
 	IEnumerator Damage (){
 		gameObject.layer = LayerMask.NameToLayer("PlayerDamage");
 
-		int count = 30;
+		int count = 10;
 		while (count > 0){
 			//透明にする
 			renderer_.material.color = new Color (1,1,1,0);

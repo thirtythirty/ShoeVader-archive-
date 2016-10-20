@@ -23,8 +23,9 @@ public class Unit : MonoBehaviour {
 		if (rb != null) {
 			OwnVelocity = rb.velocity;
 		}
-			
+
 		for (int i = 0; i < bullet.transform.childCount; i++) {
+			
 			bullet.GetComponent<Bullet> ().BaseVelocity = OwnVelocity;
 			Transform shotPosition = bullet.transform.GetChild(i);
 			Instantiate (bullet, origin.position,

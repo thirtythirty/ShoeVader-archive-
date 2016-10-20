@@ -5,6 +5,7 @@ public class MoveByPointEnemy : Enemy {
 	public GameObject[] MovePoints;
 	public int index = 0;
 	public bool ArriveAndStop = true;
+	public float waitTimeBitWeenPoint = 0.0f;
 
 	public override void init(){
 		base.init ();
@@ -26,6 +27,8 @@ public class MoveByPointEnemy : Enemy {
 			while (true) {
 				if ((MovePoints[index].transform.position - transform.position).magnitude <= (moveVector.magnitude / 10.0f)) {
 					transform.position = MovePoints[index].transform.position;
+					unit.rb.velocity = new Vector2 (0, 0);
+					yield return new WaitForSeconds(waitTimeBitWeenPoint);
 
 					break;
 				}
