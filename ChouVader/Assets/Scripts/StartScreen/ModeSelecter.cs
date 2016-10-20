@@ -36,11 +36,9 @@ public class ModeSelecter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Instantiate (myController);
-//		eventSystem = eventSystemGameObject.GetComponent<EventSystem> ();
-//		eventSystem.SetSelectedGameObject(Buttons.transform.FindChild ("Bitter").gameObject);
+
 		audioSource = startPanel.GetComponent<AudioSource>();
 		audioSource.clip = moveSoundClip;
-
 	}
 	
 	// Update is called once per frame
@@ -65,7 +63,15 @@ public class ModeSelecter : MonoBehaviour {
 	void Update () {
 		//右移動
 		if (Input.GetKeyUp (KeyCode.Z) || MyController.Controller1.switch1 || Input.GetKeyUp (KeyCode.B) || MyController.Controller2.switch1) {
-			
+			if (MyController.Controller1.switch1) {
+				while (MyController.Controller1.switch1)
+					;
+			}
+			if (MyController.Controller2.switch1) {
+				while (MyController.Controller2.switch1)
+					;
+			}
+
 			if (SelectedMode <= 0) {
 				SelectedMode = 2;
 			} else {
@@ -75,6 +81,15 @@ public class ModeSelecter : MonoBehaviour {
 
 		//左移動
 		} else if (Input.GetKeyUp (KeyCode.X) || MyController.Controller1.switch2 || Input.GetKeyUp (KeyCode.N) || MyController.Controller2.switch2) {
+			if (MyController.Controller1.switch2) {
+				while (MyController.Controller1.switch2)
+					;
+			}
+			if (MyController.Controller2.switch2) {
+				while (MyController.Controller2.switch2)
+					;
+			}
+
 			if (SelectedMode >= 2) {
 				SelectedMode = 0;
 			} else {
@@ -84,6 +99,15 @@ public class ModeSelecter : MonoBehaviour {
 
 		//決定
 		} else if (Input.GetKeyUp (KeyCode.C) || MyController.Controller1.switch3 || Input.GetKeyUp (KeyCode.M) || MyController.Controller2.switch3) {
+			if (MyController.Controller1.switch3) {
+				while (MyController.Controller1.switch3)
+					;
+			}
+			if (MyController.Controller2.switch3) {
+				while (MyController.Controller2.switch3)
+					;
+			}
+
 			//画像切り替え
 			switch (SelectedMode) {
 			case 0:
